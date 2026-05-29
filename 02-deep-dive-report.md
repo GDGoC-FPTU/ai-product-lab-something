@@ -1,6 +1,8 @@
-# Phase 2 — QUICK-ASSESS: 3 Quick Problem Cards
-
 # 🏗️ Phase 3 — DEEP-DIVE (Nhóm)
+- Phạm Duy Thái 2A202600860
+- Lưu Công Thái 2A202600949
+- Lê Quang Minh 2A202600801
+- Lê Đức Việt 2A202600959
 
 ## 3.1. Current-State Workflow
 
