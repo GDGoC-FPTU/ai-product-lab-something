@@ -4,126 +4,105 @@ Dùng **4 Lenses** quét qua vận hành của các công ty thành viên Vingro
 
 | # | Subsidiary | Lens | Mô tả ngắn bài toán |
 |---|------------|------|---------------------|
-| 1 | **VinBus** | AI Upgrade | Hệ thống AI được tích hợp qua camera để đánh giá cảm xúc và phân loại mức độ hài lòng của khách hàng. |
-| 2 | **VinFast** | AI Upgrade | Hệ thống nhận diện khách hàng, thu thập thông tin khách hàng, nhằm cung cấp cho nhân viên tư vấn bán hàng thông tin về khách hàng => Customer Centric . |
-| 3 | **VFilms** | Lặp lại | Xây dựng kịch bản cho những video ngắn (khoảng 3 giờ/video). |
-| 4 | **VFilms** | AI-upgrade | Hệ thống AI tăng khả năng sử lý đồ hoạ kỹ xảo phim| 
-| 5 | **VinBus** | Pain từ người khác | Hệ thống AI sử dụng dữ liệu từ camera và cảm biến để đưa ra số lượng người trên xe bus. Nhằm tránh việc quá tải |
-| 6 | **Xanh SM** | Pain từ người khác | Hệ thống map hoạt động không hiệu quả trên app. Làm giảm trải nhiệm của khách hàng và tài xế |
+|1| **VinRobotics** | **AI Upgrade** | Hệ thống AI Vision tích hợp trực tiếp vào cánh tay robot công nghiệp tại nhà máy VinFast, tự động phát hiện sai sót mối hàn/lắp ráp siêu nhỏ theo thời gian thực để dừng dây chuyền kịp thời, giảm tỷ lệ hàng lỗi |
+|2| **VinRobotics** | **Lặp lại**| Tự động hóa quy trình chạy hàng nghìn chu kỳ kiểm thử mô phỏng cho các dòng Robot tự hành (AGV) trong kho vận, giúp tối ưu hóa thuật toán né vật cản và hoạch định đường đi mà không cần thử nghiệm vật lý tốn kém. |
+|3| **VinRobotics** | **Pain từ người khác** | Tích hợp dữ liệu từ hệ thống quản lý kho (WMS) của VinFast/Vinhomes vào Robot kiểm kho tự hành. Robot tự động lập lịch di chuyển, quét mã và đối chiếu tồn kho vào ban đêm để giải quyết nỗi đau kiểm kho thủ công sai sót và tốn nhân lực của bộ phận Vận hành Kho. |
+|4| **Vinhomes** | **AI Upgrade** | Hệ thống AI Vision phân tích mật độ cư dân tại các tiện ích chung (bể bơi, sân bóng, lounge) để tự động điều phối lịch trực lễ tân/bảo vệ và tối ưu hóa lượng điện tiêu thụ của hệ thống chiếu sáng/điều hòa theo thời gian thực. |
+|5| **Vinmec** | **AI Upgrade** | Hệ thống AI tự động nghe, bóc tách và ghi chép cuộc hội thoại giữa Bác sĩ - Bệnh nhân trong phòng khám (Medical Scribing) để tự động điền thông tin vào bệnh án điện tử, giúp bác sĩ giảm 80% thời gian gõ máy hành chính. |
+|6| **Xanh SM** | **Pain từ người khác** | Hệ thống AI phân tích dữ liệu lịch sử đặt xe và thời tiết từ các ứng dụng giao thông công cộng để tự động điều phối, gợi ý tài xế di chuyển đón đầu trước tại các nút giao lớn, giảm thời gian chờ của khách và tăng hiệu suất cuốc của tài xế. |
 
 -----------------------
 
 Chọn top 3 từ danh sách SCAN: **#1 (VinBus Đánh giá mức độ hài lòng), #3 (VFilms Xây dựng kịch bản ngắn), #6 (Xanh SM Hệ thống Map).**
 
-## Thẻ bài toán tiêu biểu: Card #1 — VinBus Đánh giá mức độ hài lòng khi di chuyển trên Bus
 
-## QUICK PROBLEM CARD #1 — VinBus: AI đánh giá mức độ hài lòng của khách hàng
-
-```text id="mrm3ci"
-┌─────────────────────────────────────────────────────────────┐
-│ QUICK PROBLEM CARD #1                                       │
-│                                                             │
-│ Bài toán: Đánh giá mức độ hài lòng của khách hàng           │
-│ trên xe VinBus nhằm phát hiện sớm trải nghiệm tiêu cực      │
-│ và cải thiện chất lượng dịch vụ.                            │
-│                                                             │
-│ Công ty thành viên: [x] VinBus                              │
-│                                                             │
-│ Ai đang đau?                                                │
-│ Team vận hành VinBus, Customer Experience Team,             │
-│ Hành khách                                                   │
-│                                                             │
-│ Workflow thủ công hiện tại (5 bước):                        │
-│ 1. Khách hàng trải nghiệm chuyến xe                         │
-│ → 2. Khách phản hồi qua survey/app hoặc hotline             │
-│ → 3. Team CSKH tổng hợp phản hồi                            │
-│ → 4. Team vận hành đọc dữ liệu và xác định vấn đề           │
-│ → 5. Đưa ra hành động cải thiện dịch vụ                     │
-│                                                             │
-│ Bước nào tốn thời gian/lỗi nhất?                            │
-│ Bước 2-4 (⏱ ~20 phút/chuyến xe cần review) 🔴               │
-│                                                             │
-│ AI có thể nhảy vào hỗ trợ ở bước nào?                       │
-│ Bước 2-4                                                     │
-│ (Computer Vision + sentiment analysis để phân tích          │
-│ mật độ hành khách, biểu cảm tổng quát và phản hồi text)     │
-│                                                             │
-│ Đo thành công bằng gì (Metric có số)?                       │
-│ Giảm thời gian phân tích phản hồi từ 20 phút → dưới 3 phút  │
-│ Phát hiện ≥ 85% chuyến xe có trải nghiệm tiêu cực           │
-│                                                             │
-│ Quick Architecture: [x] LLM + Computer Vision               │
+### CARD #1: VINROBOTICS (LENS: AI UPGRADE)
+```
+┌──────────────────────────────────────────────────────────────┐
+│QUICK PROBLEM CARD #1                                                                                     │
+│ 
+|Bài toán: Tự động phát hiện sai sót mối hàn và lỗi lắp ráp siêu nhỏ theo     │
+│                   thời gian thực trên dây chuyền sản xuất.                          │
+│                                                                                     │
+│ Công ty thành viên: [ ] VinFast   [ ] Xanh SM   [ ] Vinhomes                        │
+│                     [ ] Vinmec    [x] Khác: VinRobotics                             │
+│                                                                                     │
+│ Ai đang đau (Actor)? Kỹ sư quản lý chất lượng (QA/QC) & Công nhân dây chuyền        │
+│                                                                                     │
+│ Workflow thủ công hiện tại (3-5 bước):                                              │
+│   1. Robot hàn/lắp ráp hoàn thành sản phẩm ──> 2. Sản phẩm di chuyển qua băng tải   │
+│   ──> 3. Kỹ sư QA dùng mắt thường hoặc kính lúp kiểm tra xác suất để phát hiện lỗi. │
+│                                                                                     │
+│ Bước nào tốn thời gian/lỗi nhất? Bước 3: Kiểm tra thủ công (Dễ bỏ sót lỗi khuất,     │
+│                                  phát hiện chậm khiến hàng lỗi bị lọt sang khâu sau)│
+│                                                                                     │
+│ AI có thể nhảy vào hỗ trợ ở bước nào? Hệ thống AI Vision quét liên tục bề mặt,      │
+│ đối chiếu mô hình 3D chuẩn để phát hiện sai lệch và ra lệnh dừng robot hành lập tức.│
+│                                                                                     │
+│ Đo thành công bằng gì (Metric có số)?                                               │
+│   - Giảm tỷ lệ sản phẩm lỗi (Defect rate) lọt qua khâu kiểm tra xuống dưới ──> 0.05%│
+│   - Thời gian phát hiện và cảnh báo lỗi giảm từ vài phút xuống ──> dưới 0.5 giây.   │
+│                                                                                     │
+│ Quick Architecture: [ ] No AI   [ ] Rule   [ ] LLM   [x] Agent (Edge AI Vision)      │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-## QUICK PROBLEM CARD #2 — VFilms: AI hỗ trợ xây dựng kịch bản video ngắn
-
-```text
-┌─────────────────────────────────────────────────────────────┐
-│ QUICK PROBLEM CARD #2                                       │
-│                                                             │
-│ Bài toán: Hỗ trợ xây dựng kịch bản cho video ngắn           │
-│ (short-form content) nhằm giảm thời gian sản xuất nội dung. │
-│                                                             │
-│ Công ty thành viên: [x] VFilms                              │
-│                                                             │
-│ Ai đang đau?                                                │
-│ Scriptwriter, Creative Team, Video Producer                │
-│                                                             │
-│ Workflow thủ công hiện tại (5 bước):                        │
-│ 1. Nhận brief nội dung từ team marketing                    │
-│ → 2. Research trend và insight người xem                   │
-│ → 3. Brainstorm ý tưởng video                               │
-│ → 4. Viết kịch bản chi tiết                                 │
-│ → 5. Team review & chỉnh sửa                                │
-│                                                             │
-│ Bước nào tốn thời gian/lỗi nhất?                            │
-│ Bước 2-4 (⏱ ~3 giờ/video)                                   │
-│                                                             │
-│ AI có thể nhảy vào hỗ trợ ở bước nào?                       │
-│ Bước 2-4                                                     │
-│ (Trend analysis → brainstorm → draft script)                │
-│                                                             │
-│ Đo thành công bằng gì (Metric có số)?                       │
-│ Giảm thời gian viết kịch bản từ 3 giờ → dưới 30 phút/video  │
-│ 80% script draft được team creative approve để chỉnh sửa    │
-│                                                             │
-│ Quick Architecture: [x] LLM Feature                         │
+```
+┌──────────────────────────────────────────────────────────────┐
+│QUICK PROBLEM CARD #2                                                                                     │
+│ 
+|Bài toán: Tự động hóa quy trình chạy thử nghiệm mô phỏng động học nhằm      │
+│                   tối ưu thuật toán điều hướng cho Robot tự hành (AGV).             │
+│                                                                                     │
+│ Công ty thành viên: [ ] VinFast   [ ] Xanh SM   [ ] Vinhomes                        │
+│                     [ ] Vinmec    [x] Khác: VinRobotics                             │
+│                                                                                     │
+│ Ai đang đau (Actor)? Đội ngũ R&D Phần mềm (Firmware Engineers)                      │
+│                                                                                     │
+│ Workflow thủ công hiện tại (3-5 bước):                                              │
+│   1. Kỹ sư lập trình thuật toán né vật cản ──> 2. Nạp phần mềm vào robot thật       │
+│   ──> 3. Thiết lập sa bàn vật lý và quan sát robot chạy để tìm lỗi (mất nhiều tuần).│
+│                                                                                     │
+│ Bước nào tốn thời gian/lỗi nhất? Bước 3: Thử nghiệm vật lý (Tốn thời gian setup,    │
+│                                  không thể thử hết hàng nghìn góc cua, va chạm).    │
+│                                                                                     │
+│ AI có thể nhảy vào hỗ trợ ở bước nào? AI tự động tạo và lặp lại hàng nghìn kịch     │
+│ bản di chuyển ảo (Kinematic Simulation) trong môi trường số để ép thuật toán tìm lỗi│
+│                                                                                     │
+│ Đo thành công bằng gì (Metric có số)?                                               │
+│   - Tăng số lượng kịch bản kiểm thử góc khuất từ 50 kịch bản/tuần ──> 10,000+/ngày. │
+│   - Rút ngắn thời gian hoàn thiện 1 phiên bản firmware từ 1 tháng ──> dưới 3 ngày.  │
+│                                                                                     │
+│ Quick Architecture: [ ] No AI   [ ] Rule   [x] LLM/GenAI   [ ] Agent     │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-## QUICK PROBLEM CARD #3 — Xanh SM: Hệ thống map hoạt động không hiệu quả
-
-```text
-┌─────────────────────────────────────────────────────────────┐
-│ QUICK PROBLEM CARD #3                                       │
-│                                                             │
-│ Bài toán: Hệ thống map trên app Xanh SM hoạt động           │
-│ không hiệu quả, gây khó khăn cho tài xế và khách hàng.      │
-│                                                             │
-│ Công ty thành viên: [x] Xanh SM                             │
-│                                                             │
-│ Ai đang đau?                                                │
-│ Tài xế Xanh SM, Khách hàng, Team vận hành                   │
-│                                                             │
-│ Workflow thủ công hiện tại (5 bước):                        │
-│ 1. Khách đặt chuyến trên app                                │
-│ → 2. Hệ thống map xác định điểm đón/trả                     │
-│ → 3. Driver nhận chuyến và di chuyển                        │
-│ → 4. Driver gọi điện xác nhận vị trí khách                  │
-│ → 5. Hủy chuyến hoặc điều chỉnh thủ công nếu sai vị trí     │
-│                                                             │
-│ Bước nào tốn thời gian/lỗi nhất?                            │
-│ Bước 2-4 (⏱ 8–15 phút/chuyến lỗi) 🔴                        │
-│                                                             │
-│ AI có thể nhảy vào hỗ trợ ở bước nào?                       │
-│ Bước 2-4                                                     │
-│ (Context-aware pickup suggestion + route optimization)      │
-│                                                             │
-│ Đo thành công bằng gì (Metric có số)?                       │
-│ Giảm tỉ lệ hủy chuyến do sai vị trí từ X% → dưới 30%        │
-│ Giảm thời gian xác định điểm đón từ 5 phút → dưới 1 phút    │
-│                                                             │
-│ Quick Architecture: [x] Agent                               │
+```
+┌──────────────────────────────────────────────────────────────┐
+│QUICK PROBLEM CARD #3                                                                                     │
+│ 
+|Bài toán: Tự động hóa quy trình kiểm kê kho vận ban đêm bằng robot tự hành  │
+│                   nhằm loại bỏ sai lệch dữ liệu tồn kho thực tế.                    │
+│                                                                                     │
+│ Công ty thành viên: [ ] VinFast   [ ] Xanh SM   [ ] Vinhomes                        │
+│                     [ ] Vinmec    [x] Khác: VinRobotics (Giải quyết cho VinFast Kho)│
+│                                                                                     │
+│ Ai đang đau (Actor)? Bộ phận Quản lý Kho vật tư (Logistics/Supply Chain)            │
+│                                                                                     │
+│ Workflow thủ công hiện tại (3-5 bước):                                              │
+│   1. Nhân viên cầm máy quét đi từng kệ hàng ──> 2. Trèo cao/bới hộp để tìm mã vạch  │
+│   ──> 3. Nhập số lượng thủ công vào file Excel/WMS ──> 4. Đối chiếu lệch dòng tiền. │
+│                                                                                     │
+│ Bước nào tốn thời gian/lỗi nhất? Bước 1 & 2: Đi quét mã và đếm thủ công hàng hóa     │
+│                                  (Tốn hàng chục giờ nhân công, dễ ghi sai số lượng).│
+│                                                                                     │
+│ AI có thể nhảy vào hỗ trợ ở bước nào? Robot quét map tự động chạy ban đêm, đọc dữ   │
+│ liệu hệ thống WMS để tự đối chiếu, dùng AI Vision đếm số thùng hàng trên kệ.        │
+│                                                                                     │
+│ Đo thành công bằng gì (Metric có số)?                                               │
+│   - Giảm thời gian kiểm kê định kỳ từ 24 giờ dừng kho ──> 0 giờ (chạy tự động đêm). │
+│   - Độ chính xác dữ liệu tồn kho (Inventory Accuracy) tăng từ 92% ──> 99.9%.        │
+│                                                                                     │
+│ Quick Architecture: [ ] No AI   [ ] Rule   [ ] LLM   [x] Agent    │
 └─────────────────────────────────────────────────────────────┘
 ```
