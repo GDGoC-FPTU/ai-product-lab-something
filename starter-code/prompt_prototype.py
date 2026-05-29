@@ -37,6 +37,10 @@ GEMINI_MODEL = "gemini-2.5-flash-lite"
 #
 # Rule 4:
 # AI MUST NEVER auto-cancel rides.
+#
+# Rule 5:
+# If battery level is below 5%, the system must prefer
+# action "dispatch_mobile_charger" instead of sending risky route guidance.
 # ===========================================================================
 
 SYSTEM_PROMPT = """
